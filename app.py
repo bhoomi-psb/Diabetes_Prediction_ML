@@ -1,3 +1,4 @@
+import os
 import pickle
 import numpy as np
 import streamlit as st
@@ -8,7 +9,13 @@ import pandas as pd
 st.set_page_config(page_title="🌿 Diabetes Prediction", layout="wide", page_icon="🌿")
 
 # Load the trained model
-diabetes_model_path = r"C:\Users\desai\OneDrive\Desktop\disease prediction\diabetes_model.sav"
+diabetes_model_path = "diabetes_model.sav"
+
+if os.path.exists(diabetes_model_path):
+    with open(diabetes_model_path, "rb") as model_file:
+        diabetes_model = pickle.load(model_file)
+else:
+    st.error("⚠️ Model file not found. Please check the file path and upload it.")
 
 try:
     with open(diabetes_model_path, "rb") as model_file:
